@@ -191,7 +191,7 @@ public class GameActivity extends Activity {
                     }
                 }
             }
-        },200,500 - getSharedPreferences("data",MODE_PRIVATE).getInt("speed",300));
+        },200,400 - getSharedPreferences("data",MODE_PRIVATE).getInt("speed",50)*4);
 
     }
 

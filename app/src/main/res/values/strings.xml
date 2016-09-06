@@ -3,4 +3,7 @@
     <string name="start">Start</string>
     <string name="info">Info</string>
     <string name="settings">Settings</string>
+    <string name="vibration">Vibration:</string>
+    <string name="size_of_snake">Size of snake:</string>
+    <string name="speed_of_snake">Speed of snake:</string>
 </resources>

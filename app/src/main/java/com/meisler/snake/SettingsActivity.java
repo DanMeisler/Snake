@@ -28,6 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((SeekBar)findViewById(R.id.speedSB)).setProgress(getSharedPreferences("data",MODE_PRIVATE).getInt("speed",50));
         ((CheckBox) findViewById(R.id.vibrationCB)).setChecked(getSharedPreferences("data",MODE_PRIVATE).getBoolean("vibration",true));
         switch (getResolution())
         {
@@ -65,6 +66,22 @@ public class SettingsActivity extends AppCompatActivity {
 
         });
 
+        ((SeekBar)findViewById(R.id.speedSB)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                getSharedPreferences("data",MODE_PRIVATE).edit().putInt("speed",seekBar.getProgress()).commit();
+            }
+        });
         ((CheckBox) findViewById(R.id.vibrationCB)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
