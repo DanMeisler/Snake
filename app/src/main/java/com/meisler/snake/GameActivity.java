@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -79,67 +81,74 @@ public class GameActivity extends Activity {
         ((TextView)findViewById(R.id.scoreTV)).setText(String.valueOf(score));
         snake = new Snake();
         food = new Food(snake.points);
-        rl.setOnTouchListener(new OnSwipeTouchListener(){
-            @Override
-            public void onLeftToRightSwipe() {
-                if(!isScreenUpdated)
-                    return;
-                snake.setDirection(Direction.Right);
-                isScreenUpdated = false;
-            }
-
-            @Override
-            public void onRightToLeftSwipe() {
-                if(!isScreenUpdated)
-                    return;
-                snake.setDirection(Direction.Left);
-                isScreenUpdated = false;
-            }
-
-            @Override
-            public void onTopToBottomSwipe() {
-                if(!isScreenUpdated)
-                    return;
-                snake.setDirection(Direction.Down);
-                isScreenUpdated = false;
-            }
-
-            @Override
-            public void onBottomToTopSwipe() {
-                if(!isScreenUpdated)
-                    return;
-                snake.setDirection(Direction.Up);
-                isScreenUpdated = false;
-            }
-        });
-        /*rl.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent ev) {
-                if(!isScreenUpdated)
-                    return true;
-                float deltaWidth = Math.abs(ev.getX() - snake.points.get(0).getRealX());
-                float deltaHight = Math.abs(ev.getY() - snake.points.get(0).getRealY());
-                if(deltaWidth > deltaHight)
-                {
-                    if(ev.getX() > snake.points.get(0).getRealX())
-                    {
+        switch (getSharedPreferences("data",MODE_PRIVATE).getInt("gesture",0))
+        {
+            case 0:
+                rl.setOnTouchListener(new OnSwipeTouchListener(){
+                    @Override
+                    public void onLeftToRightSwipe() {
+                        if(!isScreenUpdated)
+                            return;
                         snake.setDirection(Direction.Right);
+                        isScreenUpdated = false;
                     }
-                    else
+
+                    @Override
+                    public void onRightToLeftSwipe() {
+                        if(!isScreenUpdated)
+                            return;
                         snake.setDirection(Direction.Left);
-                }
-                else
-                {
-                    if(ev.getY() > snake.points.get(0).getRealY())
-                    {
-                        snake.setDirection(Direction.Down);
+                        isScreenUpdated = false;
                     }
-                    else
+
+                    @Override
+                    public void onTopToBottomSwipe() {
+                        if(!isScreenUpdated)
+                            return;
+                        snake.setDirection(Direction.Down);
+                        isScreenUpdated = false;
+                    }
+
+                    @Override
+                    public void onBottomToTopSwipe() {
+                        if(!isScreenUpdated)
+                            return;
                         snake.setDirection(Direction.Up);
-                }
-                isScreenUpdated = false;
-                return true;
-            }
-        });*/
+                        isScreenUpdated = false;
+                    }
+                });
+                break;
+            case 1:
+                rl.setOnTouchListener(new View.OnTouchListener() {
+
+                    public boolean onTouch(View v, MotionEvent ev) {
+                        if(!isScreenUpdated)
+                            return true;
+                        float deltaWidth = Math.abs(ev.getX() - snake.points.get(0).getRealX());
+                        float deltaHight = Math.abs(ev.getY() - snake.points.get(0).getRealY());
+                        if(deltaWidth > deltaHight)
+                        {
+                            if(ev.getX() > snake.points.get(0).getRealX())
+                                snake.setDirection(Direction.Right);
+                            else
+                                snake.setDirection(Direction.Left);
+                        }
+                        else
+                        {
+                            if(ev.getY() > snake.points.get(0).getRealY())
+                                snake.setDirection(Direction.Down);
+                            else
+                                snake.setDirection(Direction.Up);
+                        }
+                        isScreenUpdated = false;
+                        return true;
+                    }
+                });
+                break;
+
+        }
+
+
         t = new Timer();
         t.schedule(new TimerTask() {
             @Override

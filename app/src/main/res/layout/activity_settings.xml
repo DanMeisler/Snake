@@ -52,4 +52,32 @@
         android:id="@+id/vibrationCB"
         android:layout_width="50dp"
         android:layout_height="50dp"/>
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:text="@string/gesture"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/swipeRB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/swipe"
+            android:onClick="onRadioButtonClicked"/>
+        <RadioButton
+            android:id="@+id/pointerRB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pointer"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+
 </LinearLayout>

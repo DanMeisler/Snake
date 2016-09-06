@@ -3,8 +3,10 @@ package com.meisler.snake;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.SeekBar;
 
 import com.meisler.snake.others.CommonDivisors;
@@ -28,6 +30,15 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        switch (getSharedPreferences("data",MODE_PRIVATE).getInt("gesture",0))
+        {
+            case 0:
+                ((RadioButton) findViewById(R.id.swipeRB)).setChecked(true);
+                break;
+            case 1:
+                ((RadioButton) findViewById(R.id.pointerRB)).setChecked(true);
+                break;
+        }
         ((SeekBar)findViewById(R.id.speedSB)).setProgress(getSharedPreferences("data",MODE_PRIVATE).getInt("speed",50));
         ((CheckBox) findViewById(R.id.vibrationCB)).setChecked(getSharedPreferences("data",MODE_PRIVATE).getBoolean("vibration",true));
         switch (getResolution())
@@ -59,9 +70,9 @@ public class SettingsActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                getSharedPreferences("hd",MODE_PRIVATE).edit().putInt("sizeIndex",(int)((seekBar.getProgress() / 100.0) * (CommonDivisors.hd.length - 1))).commit();
-                getSharedPreferences("fhd",MODE_PRIVATE).edit().putInt("sizeIndex",(int)((seekBar.getProgress() / 100.0) * (CommonDivisors.fhd.length - 1))).commit();
-                getSharedPreferences("qhd",MODE_PRIVATE).edit().putInt("sizeIndex",(int)((seekBar.getProgress() / 100.0) * (CommonDivisors.qhd.length - 1))).commit();
+                getSharedPreferences("hd",MODE_PRIVATE).edit().putInt("sizeIndex",(int)((seekBar.getProgress() / 100.0) * (CommonDivisors.hd.length - 1))).apply();
+                getSharedPreferences("fhd",MODE_PRIVATE).edit().putInt("sizeIndex",(int)((seekBar.getProgress() / 100.0) * (CommonDivisors.fhd.length - 1))).apply();
+                getSharedPreferences("qhd",MODE_PRIVATE).edit().putInt("sizeIndex",(int)((seekBar.getProgress() / 100.0) * (CommonDivisors.qhd.length - 1))).apply();
             }
 
         });
@@ -96,5 +107,20 @@ public class SettingsActivity extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+
+        switch(view.getId()) {
+            case R.id.swipeRB:
+                if (checked)
+                    getSharedPreferences("data",MODE_PRIVATE).edit().putInt("gesture",0).commit();
+                    break;
+            case R.id.pointerRB:
+                if (checked)
+                    getSharedPreferences("data",MODE_PRIVATE).edit().putInt("gesture",1).commit();
+                    break;
+        }
     }
 }
