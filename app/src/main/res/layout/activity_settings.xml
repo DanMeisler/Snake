@@ -8,18 +8,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@color/colorAccent"
+    android:background="@color/colorBackground"
     tools:context="com.meisler.snake.SettingsActivity">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/custom_TextViewStyle"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:text="@string/size_of_snake"/>
     <SeekBar
         android:id="@+id/sizeIndexSB"
-        style="@android:style/Widget.Holo.SeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
@@ -34,7 +31,6 @@
         android:text="@string/speed_of_snake"/>
     <SeekBar
         android:id="@+id/speedSB"
-        style="@android:style/Widget.Holo.SeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
@@ -43,9 +39,7 @@
         android:layout_height="30dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
+        style="@style/custom_TextViewStyle"
         android:textSize="20sp"
         android:text="@string/vibration"/>
     <CheckBox
@@ -57,9 +51,7 @@
         android:layout_height="30dp" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
+        style="@style/custom_TextViewStyle"
         android:textSize="20sp"
         android:text="@string/gesture"/>
     <RadioGroup

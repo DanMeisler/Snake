@@ -8,10 +8,23 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
-        <item name="android:checkboxStyle">@style/custom_CheckBoxStyle</item>
+        <item name="android:button">@style/custom_ButtonStyle</item>
+        <item name="android:textViewStyle">@style/custom_TextViewStyle</item>
     </style>
 
-    <style name="custom_CheckBoxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/custom_checkbox</item>
+    <style name="custom_ButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorBackground</item>
+        <item name="android:textSize">50dp</item>
+        <item name="android:textStyle">italic|bold</item>
+    </style>
+
+    <style name="custom_TextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>
