@@ -2,6 +2,7 @@ package com.meisler.snake;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 
@@ -134,16 +136,17 @@ public class SettingsActivity extends AppCompatActivity {
         File imagePath = new File(this.getFilesDir(), "lastGame.png");
         BitmapFactory.Options opt = new BitmapFactory.Options();
         opt.inMutable = true;
-        return BitmapFactory.decodeFile(imagePath.getAbsolutePath(),opt);
+        return BitmapFactory.decodeFile(imagePath.getPath(),opt);
     }
     
     @Override
     protected void onStart() {
         super.onStart();
         Bitmap b = getBitmap();
-        if(b!=null)
+        if(b != null)
         {
-            ((ImageView)findViewById(R.id.lastGameIV)).setImageBitmap(getBitmap());
+            (findViewById(R.id.settingsLL)).setBackground(new BitmapDrawable(getResources(),b));
+            (findViewById(R.id.settingsLL)).getBackground().setAlpha(51);
         }
     }
 }

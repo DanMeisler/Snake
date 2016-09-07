@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ public class MainActivity extends Activity {
         File imagePath = new File(this.getFilesDir(), "lastGame.png");
         BitmapFactory.Options opt = new BitmapFactory.Options();
         opt.inMutable = true;
-        return BitmapFactory.decodeFile(imagePath.getAbsolutePath(),opt);
+        return BitmapFactory.decodeFile(imagePath.getPath(),opt);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +59,10 @@ public class MainActivity extends Activity {
         super.onStart();
         ((TextView)findViewById(R.id.bestTV)).setText("Best score : " + getSharedPreferences("data",MODE_PRIVATE).getInt("bestScore",0));
         Bitmap b = getBitmap();
-        if(b!=null)
+        if(b != null)
         {
-            ((ImageView)findViewById(R.id.lastGameIV)).setImageBitmap(getBitmap());
+            (findViewById(R.id.mainFL)).setBackground(new BitmapDrawable(getResources(),b));
+            (findViewById(R.id.mainFL)).getBackground().setAlpha(51);
         }
     }
 

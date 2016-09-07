@@ -190,8 +190,11 @@ public class GameActivity extends Activity {
                 break;
 
         }
+    }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
         t = new Timer();
         t.schedule(new TimerTask() {
             @Override
@@ -233,27 +236,20 @@ public class GameActivity extends Activity {
                     {
                         if (getSharedPreferences("data",MODE_PRIVATE).getBoolean("vibration",true))
                             vibrate(400);
-                        finish();
+                        GameActivity.this.finish();
+                        this.cancel();
                     }
                 }
             }
         },0,400 - getSharedPreferences("data",MODE_PRIVATE).getInt("speed",50)*4 + 1);
-
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        t.cancel();
         Bitmap bitmap = takeScreenshot();
         saveBitmap(bitmap);
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        t.cancel();
-
 
     }
 }
