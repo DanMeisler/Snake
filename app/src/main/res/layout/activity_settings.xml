@@ -21,13 +21,10 @@
         android:layout_height="wrap_content"
         />
     <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        style="@style/custom_SpaceStyle" />
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/custom_TextViewStyle"
         android:textSize="20sp"
-        android:textStyle="bold"
         android:text="@string/speed_of_snake"/>
     <SeekBar
         android:id="@+id/speedSB"
@@ -35,8 +32,7 @@
         android:layout_height="wrap_content"
         />
     <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        style="@style/custom_SpaceStyle" />
 
     <TextView
         style="@style/custom_TextViewStyle"
@@ -44,11 +40,11 @@
         android:text="@string/vibration"/>
     <CheckBox
         android:id="@+id/vibrationCB"
-        android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="30dp" />
+        style="@style/custom_SpaceStyle" />
 
     <TextView
         style="@style/custom_TextViewStyle"
@@ -60,14 +56,12 @@
         android:orientation="horizontal">
         <RadioButton
             android:id="@+id/swipeRB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/custom_RadioButtonStyle"
             android:text="@string/swipe"
             android:onClick="onRadioButtonClicked"/>
         <RadioButton
             android:id="@+id/pointerRB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/custom_RadioButtonStyle"
             android:text="@string/pointer"
             android:onClick="onRadioButtonClicked"/>
     </RadioGroup>

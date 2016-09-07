@@ -31,6 +31,14 @@ public class GameActivity extends Activity {
     boolean isScreenUpdated;
     int pointSize;
 
+    private void drawCircle(int radius , int x , int y , int color)
+    {
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(radius * 2,radius * 2);
+        lp.topMargin = y - radius;
+        lp.leftMargin = x - radius;
+        rl.addView(new CircleView(GameActivity.this ,null , ContextCompat.getColor(GameActivity.this, color)) ,lp);
+    }
+
     private int gcd(int p, int q) {
         if (q == 0) return p;
         else return gcd(q, p % q);
@@ -61,13 +69,13 @@ public class GameActivity extends Activity {
         switch (getResolution())
         {
             case Hd:
-                pointSize = CommonDivisors.hd[getSharedPreferences("hd",MODE_PRIVATE).getInt("sizeIndex",8)];
+                pointSize = CommonDivisors.hd[getSharedPreferences("hd",MODE_PRIVATE).getInt("sizeIndex",3)];
                 break;
             case Fhd:
-                pointSize = CommonDivisors.fhd[getSharedPreferences("fhd",MODE_PRIVATE).getInt("sizeIndex",14)];
+                pointSize = CommonDivisors.fhd[getSharedPreferences("fhd",MODE_PRIVATE).getInt("sizeIndex",3)];
                 break;
             case Qhd:
-                pointSize = CommonDivisors.qhd[getSharedPreferences("qhd",MODE_PRIVATE).getInt("sizeIndex",10)];
+                pointSize = CommonDivisors.qhd[getSharedPreferences("qhd",MODE_PRIVATE).getInt("sizeIndex",3)];
                 break;
             case None:
                 pointSize = gcd(getResources().getDisplayMetrics().widthPixels,getResources().getDisplayMetrics().heightPixels) / 2;
@@ -177,16 +185,10 @@ public class GameActivity extends Activity {
                     public void run() {
 
                         rl.removeAllViews();
-                        RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(pointSize,pointSize);
-                        lp1.topMargin = food.point.getRealY() - Point.getRadius();
-                        lp1.leftMargin = food.point.getRealX() - Point.getRadius();
-                        rl.addView(new CircleView(getApplicationContext(),null, ContextCompat.getColor(GameActivity.this, R.color.colorFood)),lp1);
-                        for (Point p:snake.points) {
-                            RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(pointSize,pointSize);
-                            lp2.topMargin = p.getRealY() - Point.getRadius();
-                            lp2.leftMargin = p.getRealX() - Point.getRadius();
-                            rl.addView(new CircleView(getApplicationContext(),null,ContextCompat.getColor(GameActivity.this, R.color.colorSnake)),lp2);
-                        }
+                        drawCircle(pointSize / 2 , food.point.getRealX(),food.point.getRealY(),R.color.colorFood);
+                        for (int i = 1 ; i < snake.points.size();++i )
+                            drawCircle(pointSize / 2 , snake.points.get(i).getRealX(),snake.points.get(i).getRealY(),R.color.colorSnake);
+                        drawCircle(pointSize / 2 , snake.points.get(0).getRealX(),snake.points.get(0).getRealY(),R.color.colorHeadSnake); //snake head
                         isScreenUpdated = true;
                     }
                 });
@@ -200,7 +202,7 @@ public class GameActivity extends Activity {
                     }
                 }
             }
-        },200,400 - getSharedPreferences("data",MODE_PRIVATE).getInt("speed",50)*4);
+        },0,400 - getSharedPreferences("data",MODE_PRIVATE).getInt("speed",50)*4 + 1);
 
     }
 

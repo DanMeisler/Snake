@@ -44,13 +44,13 @@ public class SettingsActivity extends AppCompatActivity {
         switch (getResolution())
         {
             case Hd:
-                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("hd",MODE_PRIVATE).getInt("sizeIndex",8) / (double)(CommonDivisors.hd.length - 1)) * 100));
+                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("hd",MODE_PRIVATE).getInt("sizeIndex",3) / (double)(CommonDivisors.hd.length - 1)) * 100));
                 break;
             case Fhd:
-                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("fhd",MODE_PRIVATE).getInt("sizeIndex",14) / (double)(CommonDivisors.fhd.length - 1)) * 100));
+                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("fhd",MODE_PRIVATE).getInt("sizeIndex",3) / (double)(CommonDivisors.fhd.length - 1)) * 100));
                 break;
             case Qhd:
-                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("qhd",MODE_PRIVATE).getInt("sizeIndex",10) / (double)(CommonDivisors.qhd.length - 1)) * 100));
+                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("qhd",MODE_PRIVATE).getInt("sizeIndex",3) / (double)(CommonDivisors.qhd.length - 1)) * 100));
                 break;
             case None:
                 (findViewById(R.id.sizeIndexSB)).setEnabled(false);
@@ -115,11 +115,11 @@ public class SettingsActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.swipeRB:
                 if (checked)
-                    getSharedPreferences("data",MODE_PRIVATE).edit().putInt("gesture",0).commit();
+                    getSharedPreferences("data",MODE_PRIVATE).edit().putInt("gesture",0).apply();
                     break;
             case R.id.pointerRB:
                 if (checked)
-                    getSharedPreferences("data",MODE_PRIVATE).edit().putInt("gesture",1).commit();
+                    getSharedPreferences("data",MODE_PRIVATE).edit().putInt("gesture",1).apply();
                     break;
         }
     }
