@@ -1,16 +1,21 @@
 package com.meisler.snake;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 
 import com.meisler.snake.others.CommonDivisors;
 import com.meisler.snake.others.Resolution;
+
+import java.io.File;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -121,6 +126,24 @@ public class SettingsActivity extends AppCompatActivity {
                 if (checked)
                     getSharedPreferences("data",MODE_PRIVATE).edit().putInt("gesture",1).apply();
                     break;
+        }
+    }
+
+    private Bitmap getBitmap()
+    {
+        File imagePath = new File(this.getFilesDir(), "lastGame.png");
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        opt.inMutable = true;
+        return BitmapFactory.decodeFile(imagePath.getAbsolutePath(),opt);
+    }
+    
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Bitmap b = getBitmap();
+        if(b!=null)
+        {
+            ((ImageView)findViewById(R.id.lastGameIV)).setImageBitmap(getBitmap());
         }
     }
 }

@@ -2,9 +2,12 @@ package com.meisler.snake;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -19,6 +22,10 @@ import com.meisler.snake.others.CommonDivisors;
 import com.meisler.snake.others.OnSwipeTouchListener;
 import com.meisler.snake.others.Resolution;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -60,6 +67,34 @@ public class GameActivity extends Activity {
     {
         Vibrator vibs = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibs.vibrate(duration);
+    }
+
+    private Bitmap takeScreenshot()
+    {
+        View rootView = findViewById(R.id.snakeRL).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        return rootView.getDrawingCache();
+    }
+
+    public void saveBitmap(Bitmap bitmap)
+    {
+        File imagePath = new File(this.getFilesDir(), "lastGame.png");
+        FileOutputStream fos;
+        try
+        {
+            fos = new FileOutputStream(imagePath);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            Log.e("GREC", e.getMessage(), e);
+        }
+        catch (IOException e)
+        {
+            Log.e("GREC", e.getMessage(), e);
+        }
     }
 
     @Override
@@ -207,8 +242,18 @@ public class GameActivity extends Activity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Bitmap bitmap = takeScreenshot();
+        saveBitmap(bitmap);
+    }
+
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         t.cancel();
+
+
     }
 }

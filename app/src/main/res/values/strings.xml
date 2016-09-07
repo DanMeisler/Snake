@@ -9,4 +9,6 @@
     <string name="gesture">Gesture:</string>
     <string name="swipe">Swipe</string>
     <string name="pointer">Pointer</string>
+    <string name="last_game_end_screenshot">Last game end screenShot</string>
+    <string name="best_score_0">Best score : 0</string>
 </resources>
