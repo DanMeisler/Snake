@@ -46,18 +46,18 @@ public class SettingsActivity extends AppCompatActivity {
                 ((RadioButton) findViewById(R.id.pointerRB)).setChecked(true);
                 break;
         }
-        ((SeekBar)findViewById(R.id.speedSB)).setProgress(getSharedPreferences("data",MODE_PRIVATE).getInt("speed",50));
+        ((SeekBar)findViewById(R.id.speedSB)).setProgress(getSharedPreferences("data",MODE_PRIVATE).getInt("speed",60));
         ((CheckBox) findViewById(R.id.vibrationCB)).setChecked(getSharedPreferences("data",MODE_PRIVATE).getBoolean("vibration",true));
         switch (getResolution())
         {
             case Hd:
-                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("hd",MODE_PRIVATE).getInt("sizeIndex",3) / (double)(CommonDivisors.hd.length - 1)) * 100));
+                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("hd",MODE_PRIVATE).getInt("sizeIndex",2) / (double)(CommonDivisors.hd.length - 1)) * 100));
                 break;
             case Fhd:
-                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("fhd",MODE_PRIVATE).getInt("sizeIndex",3) / (double)(CommonDivisors.fhd.length - 1)) * 100));
+                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("fhd",MODE_PRIVATE).getInt("sizeIndex",2) / (double)(CommonDivisors.fhd.length - 1)) * 100));
                 break;
             case Qhd:
-                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("qhd",MODE_PRIVATE).getInt("sizeIndex",3) / (double)(CommonDivisors.qhd.length - 1)) * 100));
+                ((SeekBar)findViewById(R.id.sizeIndexSB)).setProgress((int)((getSharedPreferences("qhd",MODE_PRIVATE).getInt("sizeIndex",2) / (double)(CommonDivisors.qhd.length - 1)) * 100));
                 break;
             case None:
                 (findViewById(R.id.sizeIndexSB)).setEnabled(false);

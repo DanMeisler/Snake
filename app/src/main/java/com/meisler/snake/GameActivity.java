@@ -105,13 +105,13 @@ public class GameActivity extends Activity {
         switch (getResolution())
         {
             case Hd:
-                pointSize = CommonDivisors.hd[getSharedPreferences("hd",MODE_PRIVATE).getInt("sizeIndex",3)];
+                pointSize = CommonDivisors.hd[getSharedPreferences("hd",MODE_PRIVATE).getInt("sizeIndex",2)];
                 break;
             case Fhd:
-                pointSize = CommonDivisors.fhd[getSharedPreferences("fhd",MODE_PRIVATE).getInt("sizeIndex",3)];
+                pointSize = CommonDivisors.fhd[getSharedPreferences("fhd",MODE_PRIVATE).getInt("sizeIndex",2)];
                 break;
             case Qhd:
-                pointSize = CommonDivisors.qhd[getSharedPreferences("qhd",MODE_PRIVATE).getInt("sizeIndex",3)];
+                pointSize = CommonDivisors.qhd[getSharedPreferences("qhd",MODE_PRIVATE).getInt("sizeIndex",2)];
                 break;
             case None:
                 pointSize = gcd(getResources().getDisplayMetrics().widthPixels,getResources().getDisplayMetrics().heightPixels) / 2;
@@ -205,7 +205,7 @@ public class GameActivity extends Activity {
                 {
                     if (getSharedPreferences("data",MODE_PRIVATE).getBoolean("vibration",true))
                         vibrate(100);
-                    score += food.eaten(System.currentTimeMillis());
+                    score += food.eaten(System.currentTimeMillis(),snake.points.size());
                     if (score > getSharedPreferences("data",MODE_PRIVATE).getInt("bestScore",0))
                     {
                         runOnUiThread(new Runnable() {
@@ -263,7 +263,7 @@ public class GameActivity extends Activity {
                     }
                 }
             }
-        },0,400 - getSharedPreferences("data",MODE_PRIVATE).getInt("speed",50)*4 + 50);
+        },0,400 - getSharedPreferences("data",MODE_PRIVATE).getInt("speed",60)*4 + 50);
     }
 
     @Override

@@ -14,11 +14,8 @@ public class Food {
     public int value;
     long startTime;
     Random r;
-    int notValidPointsSize;
     public Food(ArrayList<Point> notValidPoints) {
-        startTime = System.currentTimeMillis();
         r = new Random();
-        notValidPointsSize = notValidPoints.size();
         while(true)
         {
             point = new Point(r.nextInt(),r.nextInt());
@@ -32,13 +29,12 @@ public class Food {
             if(isValid)
                 break;
         }
-
-
+        startTime = System.currentTimeMillis();
     }
 
-    public int eaten(long endTime)
+    public int eaten(long endTime , int snakeSize)
     {
-        value = ((endTime - startTime) / 1000 >  1 ? 1 : (Math.abs(r.nextInt()) % notValidPointsSize) + 1); // The score formula
+        value = ((endTime - startTime) / 1000 >  1 ? 1 : (Math.abs(r.nextInt()) % snakeSize) + 1); // The score formula
         return value;
     }
 }
