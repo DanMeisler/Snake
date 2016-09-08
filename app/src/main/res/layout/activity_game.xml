@@ -13,8 +13,9 @@
         <TextView
             android:id="@+id/scoreTV"
             style="@style/custom_TextViewStyle"
+            android:textStyle="normal"
             android:textColor="@color/colorPrimary"
-            android:textSize="150sp"/>
+            android:textSize="200sp"/>
     </RelativeLayout>
     <RelativeLayout
         android:background="@android:color/transparent"

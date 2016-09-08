@@ -3,6 +3,7 @@ package com.meisler.snake;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Vibrator;
@@ -196,7 +197,7 @@ public class GameActivity extends Activity {
     protected void onStart() {
         super.onStart();
         t = new Timer();
-        t.schedule(new TimerTask() {
+        t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 snake.move();
@@ -207,6 +208,27 @@ public class GameActivity extends Activity {
                     score++;
                     if (score > getSharedPreferences("data",MODE_PRIVATE).getInt("bestScore",0))
                     {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ((TextView)findViewById(R.id.scoreTV)).setTextColor(ContextCompat.getColor(GameActivity.this,R.color.colorNewRecordText));
+                                ((TextView)findViewById(R.id.scoreTV)).setTypeface(Typeface.DEFAULT_BOLD);
+                                final Timer timer = new Timer();
+                                timer.schedule(new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ((TextView) findViewById(R.id.scoreTV)).setTextColor(ContextCompat.getColor(GameActivity.this, R.color.colorPrimary));
+                                                ((TextView)findViewById(R.id.scoreTV)).setTypeface(Typeface.DEFAULT);
+                                                timer.cancel();
+                                            }
+                                        });
+                                    }
+                                },1000,1);
+                            }
+                        });
                         getSharedPreferences("data",MODE_PRIVATE).edit().putInt("bestScore",score).commit();
                     }
                     runOnUiThread(new Runnable() {
@@ -241,7 +263,7 @@ public class GameActivity extends Activity {
                     }
                 }
             }
-        },0,400 - getSharedPreferences("data",MODE_PRIVATE).getInt("speed",50)*4 + 1);
+        },0,400 - getSharedPreferences("data",MODE_PRIVATE).getInt("speed",50)*4 + 50);
     }
 
     @Override
