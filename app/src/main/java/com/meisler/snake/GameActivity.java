@@ -205,7 +205,7 @@ public class GameActivity extends Activity {
                 {
                     if (getSharedPreferences("data",MODE_PRIVATE).getBoolean("vibration",true))
                         vibrate(100);
-                    score++;
+                    score += food.eaten(System.currentTimeMillis());
                     if (score > getSharedPreferences("data",MODE_PRIVATE).getInt("bestScore",0))
                     {
                         runOnUiThread(new Runnable() {
